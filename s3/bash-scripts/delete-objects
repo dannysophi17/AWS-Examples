@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+if [ -z "$1" ]; then
+    echo "No bucket name provided. Usage: $0 bucket-name [prefix]"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+PREFIX=${2:-}
+
+# Si tiene prefijo (como "files"), se agrega al path
+S3_PATH="s3://$BUCKET_NAME"
+if [ -n "$PREFIX" ]; then
+    S3_PATH="$S3_PATH/$PREFIX"
+fi
+
+echo "Deleting all objects from $S3_PATH ..."
+aws s3 rm "$S3_PATH" --recursive
+echo "All objects deleted successfully ✅"
+

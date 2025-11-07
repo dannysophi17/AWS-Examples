@@ -1,3 +1,5 @@
-awscliv2.zip
-.aws
 .env
+.aws
+*.pem
+*.key
+
